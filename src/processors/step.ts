@@ -10,4 +10,8 @@ export class StepProcessor implements Processor {
   async run() {
     await this.process.run()
   }
+
+  send(data: any) {
+    console.log('Sent data:', data)
+  }
 }

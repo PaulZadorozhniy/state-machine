@@ -11,7 +11,12 @@ export class SuccessivelyProcessor implements Processor {
 
   async run() {
     for (const child of this.process.children) {
-      await this.fsm.run(child)
+      await this.fsm.changeState(child)
     }
   }
+
+  send(data: any) {
+    console.log('Sent data:', data)
+  }
+
 }

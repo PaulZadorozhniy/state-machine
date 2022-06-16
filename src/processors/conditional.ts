@@ -11,9 +11,13 @@ export class ConditionalProcessor implements Processor {
 
   async run() {
     if (this.process.condition) {
-      await this.fsm.run(this.process.then)
+      await this.fsm.changeState(this.process.then)
     } else {
-      await this.fsm.run(this.process.else)
+      await this.fsm.changeState(this.process.else)
     }
+  }
+
+  send(data: any) {
+    console.log('Sent data:', data)
   }
 }

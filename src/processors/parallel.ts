@@ -10,8 +10,12 @@ export class ParallelProcessor implements Processor {
   }
 
   async run() {
-    const processes = this.process.children.map(child => this.fsm.run(child))
+    const processes = this.process.children.map(child => this.fsm.changeState(child))
 
     await Promise.all(processes)
+  }
+
+  send(data: any) {
+    console.log('Sent data:', data)
   }
 }

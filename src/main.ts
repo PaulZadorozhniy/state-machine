@@ -41,7 +41,7 @@ const process: Process = {
   ]
 }
 
-const fsm = new FSM();
+const fsm = new FSM(process);
 
-(async () => await fsm.run(process))()
+fsm.run()
 

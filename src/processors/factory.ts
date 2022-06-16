@@ -1,10 +1,10 @@
-import { Process, IFSM, ProcessingTypes } from "../types"
+import { Process, IFSM, ProcessingTypes, Processor } from "../types"
 import { SuccessivelyProcessor } from "./successively"
 import { ParallelProcessor } from "./parallel"
 import { ConditionalProcessor } from "./conditional"
 import { StepProcessor } from "./step"
 
-export function create(process: Process, fsm: IFSM) {
+export function create(process: Process, fsm: IFSM): Processor {
   switch (process.type) {
     case ProcessingTypes.successively:
       return new SuccessivelyProcessor(fsm, process)

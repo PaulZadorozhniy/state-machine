@@ -1,11 +1,29 @@
-import { Process, IFSM, } from "./types";
+import { Process, IFSM, Processor, } from "./types";
 import * as processorsFactory from "./processors/factory";
 
 
 export class FSM implements IFSM {
-  async run(process: Process) {
-    const processor = processorsFactory.create(process, this)
+  private currentState: Process
+  private currentStateProcessor: Processor
 
-    processor.run()
+  constructor(process: Process) {
+    this.currentState = process
+    this.currentStateProcessor = processorsFactory.create(this.currentState, this)
+  }
+
+  async run(): Promise<void> {
+    await this.changeState(this.currentState)
+  }
+
+  async changeState(state: Process): Promise<void> {
+    this.currentState = state
+    this.currentStateProcessor = processorsFactory.create(this.currentState, this)
+
+    this.currentStateProcessor.send(`Hello from FSM to ${this.currentState.type} state processor`)
+    await this.currentStateProcessor.run()
+  }
+
+  send(data: any): void {
+    this.currentStateProcessor.send(data);
   }
 }
