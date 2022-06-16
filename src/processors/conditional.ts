@@ -1,17 +1,19 @@
-import { ConditionalProcess, IFSM } from "../types";
+import { ConditionalProcess, IFSM, Processor } from "../types";
 
-export class ConditionalProcessor {
+export class ConditionalProcessor implements Processor {
   private fsm: IFSM
+  private process: ConditionalProcess
 
-  constructor(fsm: IFSM) {
+  constructor(fsm: IFSM, process: ConditionalProcess) {
     this.fsm = fsm
+    this.process = process
   }
 
-  async run(process: ConditionalProcess) {
-    if (process.condition) {
-      await this.fsm.run(process.then)
+  async run() {
+    if (this.process.condition) {
+      await this.fsm.run(this.process.then)
     } else {
-      await this.fsm.run(process.else)
+      await this.fsm.run(this.process.else)
     }
   }
 }

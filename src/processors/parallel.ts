@@ -1,14 +1,16 @@
-import { ParallelProcess, IFSM } from "../types";
+import { ParallelProcess, IFSM, Processor } from "../types";
 
-export class ParallelProcessor {
+export class ParallelProcessor implements Processor {
   private fsm: IFSM
+  private process: ParallelProcess
 
-  constructor(fsm: IFSM) {
+  constructor(fsm: IFSM, process: ParallelProcess) {
     this.fsm = fsm
+    this.process = process
   }
 
-  async run(process: ParallelProcess) {
-    const processes = process.children.map(child => this.fsm.run(child))
+  async run() {
+    const processes = this.process.children.map(child => this.fsm.run(child))
 
     await Promise.all(processes)
   }

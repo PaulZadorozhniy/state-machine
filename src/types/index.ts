@@ -32,3 +32,7 @@ export interface SuccessivelyProcess {
 export interface IFSM {
   run: (process: Process) => Promise<void>
 }
+
+export interface Processor {
+  run: () => Promise<void>
+}

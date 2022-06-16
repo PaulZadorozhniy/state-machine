@@ -1,14 +1,16 @@
-import { SuccessivelyProcess, IFSM } from "../types";
+import { SuccessivelyProcess, IFSM, Processor } from "../types";
 
-export class SuccessivelyProcessor {
+export class SuccessivelyProcessor implements Processor {
   private fsm: IFSM
+  private process: SuccessivelyProcess
 
-  constructor(fsm: IFSM) {
+  constructor(fsm: IFSM, process: SuccessivelyProcess) {
     this.fsm = fsm
+    this.process = process
   }
 
-  async run(process: SuccessivelyProcess) {
-    for (const child of process.children) {
+  async run() {
+    for (const child of this.process.children) {
       await this.fsm.run(child)
     }
   }
