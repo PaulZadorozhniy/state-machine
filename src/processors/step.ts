@@ -7,11 +7,11 @@ export class StepProcessor implements Processor {
     this.process = process
   }
 
-  async run() {
+  async run(): Promise<void> {
     await this.process.run()
   }
 
-  send(data: any) {
+  send(data: any): void {
     console.log('Sent data:', data)
   }
 }

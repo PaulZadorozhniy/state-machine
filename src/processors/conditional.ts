@@ -9,7 +9,7 @@ export class ConditionalProcessor implements Processor {
     this.process = process
   }
 
-  async run() {
+  async run(): Promise<void> {
     if (this.process.condition) {
       await this.fsm.changeState(this.process.then)
     } else {
@@ -17,7 +17,7 @@ export class ConditionalProcessor implements Processor {
     }
   }
 
-  send(data: any) {
+  send(data: any): void {
     console.log('Sent data:', data)
   }
 }

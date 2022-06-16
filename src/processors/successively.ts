@@ -9,13 +9,13 @@ export class SuccessivelyProcessor implements Processor {
     this.process = process
   }
 
-  async run() {
+  async run(): Promise<void> {
     for (const child of this.process.children) {
       await this.fsm.changeState(child)
     }
   }
 
-  send(data: any) {
+  send(data: any): void {
     console.log('Sent data:', data)
   }
 
